@@ -1,0 +1,51 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ingenova/schemas/main/hidraulica-vertimiento.json",
+  "proyecto": {
+    "codigo": "ING-PBV-2026",
+    "nombre": "Estudio de Vertimiento PTAR Puerto Buenavista",
+    "empresa": "INGENOVA S.A.S.",
+    "cliente": "Puerto Buenavista",
+    "autoridad_ambiental": "Establecimiento Público Ambiental - EPA Cartagena",
+    "normativa_aplicable": [
+      "Decreto 1076 de 2015",
+      "Resolución 0631 de 2015 (Parámetros y límites máximos permisibles en vertimientos)",
+      "Resolución 0330 de 2017 - RAS (Reglamento Técnico del Sector de Agua Potable y Saneamiento Básico)",
+      "Guía Nacional de Modelación del Recurso Hídrico para Aguas Superficiales Continentales (IDEAM)"
+    ]
+  },
+  "sistema_coordenadas": {
+    "datum": "MAGNA-SIRGAS",
+    "proyeccion": "Origen Único Nacional CTM-12",
+    "epsg": 9377
+  },
+  "geometria_canal": {
+    "tipo_seccion": "trapezoidal_concreto",
+    "descripcion": "Canal artificial de concreto abierto Yara",
+    "coeficiente_rugosidad_manning_n": 0.015,
+    "ancho_fondo_b_m": 1.20,
+    "talud_z": 0.50,
+    "pendiente_longitudinal_s0_m_m": 0.0018,
+    "longitud_total_levantada_m": 427.0
+  },
+  "tramos_monitoreo_qual2k": {
+    "distancia_aguas_arriba_vertimiento_m": 51.95,
+    "distancia_control_no_impactado_m": 31.0,
+    "longitud_tramo_efluente_a_confluencia_m": 375.05
+  },
+  "parametros_hidraulicos_diseno": {
+    "caudal_diseno_ptard_l_s": 4.50,
+    "caudal_diseno_ptard_m3_s": 0.0045,
+    "caudal_base_canal_aforo_l_s": 28.30,
+    "caudal_base_canal_aforo_m3_s": 0.0283,
+    "caudal_mezcla_total_m3_s": 0.0328
+  },
+  "calidad_vertimiento_esperada": {
+    "tipo_efluente": "Aguas Residuales Domésticas Tratadas (ARD)",
+    "dbo5_mg_l": 25.0,
+    "dqo_mg_l": 55.0,
+    "sst_mg_l": 30.0,
+    "oxigeno_disuelto_mg_l": 4.20,
+    "ph": 7.35,
+    "temperatura_c": 28.5
+  }
+}

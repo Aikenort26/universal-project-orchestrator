@@ -1,0 +1,24 @@
+# Python y caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Temporales y bloqueos
+*.tmp
+*.lock
+~$*
+
+# Conflictos de sincronizacion Cloud
+* (1).*
+* (2).*
+* (3).*
+* (conflict*).*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini

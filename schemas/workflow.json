@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "universal-project-orchestrator-workflow",
+  "version": "1.0.0",
+  "description": "Máquina de estados y puertas de calidad para el ciclo de vida de proyectos universales",
+  "phases": [
+    {
+      "order": 1,
+      "id": "preflight_and_lock",
+      "name": "Pre-vuelo y Exclusión Mutua",
+      "tools": [
+        "00-scripts_admin/test-sync-health.ps1",
+        ".brain/tools/agent_mutex.py acquire"
+      ],
+      "gate_condition": "Cerrojo adquirido con código de salida 0; cero conflictos en disco.",
+      "on_failure": "ABORTAR_Y_NOTIFICAR_USUARIO"
+    },
+    {
+      "order": 2,
+      "id": "surgical_retrieval",
+      "name": "Recuperación Quirúrgica de Contexto",
+      "tools": [
+        ".brain/search/cli.py search",
+        "graphify query",
+        "view_file con StartLine y EndLine"
+      ],
+      "gate_condition": "Consumo de contexto < 150.000 tokens; lecturas dirigidas exclusivamente.",
+      "on_failure": "COMPACTAR_O_REDUCIR_ALCANCE"
+    },
+    {
+      "order": 3,
+      "id": "superpowers_dispatch",
+      "name": "Despacho y Delegación Agéntica",
+      "tools": [
+        "dispatching-parallel-agents",
+        "subagent-driven-development",
+        "executing-plans"
+      ],
+      "gate_condition": "Tareas independientes despachadas a subagentes aislados con prompt atómico y criterio de parada.",
+      "on_failure": "EJECUCION_SECUENCIAL"
+    },
+    {
+      "order": 4,
+      "id": "domain_execution",
+      "name": "Ejecución Desacoplada de Dominio",
+      "tools": [
+        "mcp_civil_server.py",
+        "matlab MCP",
+        "qgis MCP",
+        "generador de entregables paramétrico"
+      ],
+      "gate_condition": "Fuente de verdad en modelo canónico (DATOS_*.json); cálculos verificados matemáticamente.",
+      "on_failure": "DECLARAR_PENDIENTE"
+    },
+    {
+      "order": 5,
+      "id": "quality_assurance_and_release",
+      "name": "Auditoría de Calidad, Sanitización y Cierre",
+      "tools": [
+        "00-scripts_admin/turnitout_humanizer.py --check",
+        ".brain/tools/agent_mutex.py log",
+        ".brain/tools/agent_mutex.py release"
+      ],
+      "gate_condition": "Cero caracteres zero-width, cero clichés de IA, cumplimiento del estándar AHOH, cerrojo liberado.",
+      "on_failure": "CORRECCION_OBLIGATORIA_ANTES_DE_CERRAR"
+    }
+  ]
+}

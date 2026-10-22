@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Universal Project Orchestrator Domain Adapter Schema",
+  "type": "object",
+  "required": [
+    "dominio_id",
+    "nombre",
+    "archivo_canonico_datos",
+    "motores_calculo",
+    "criterios_normativos_o_estandares",
+    "generador_entregables"
+  ],
+  "properties": {
+    "dominio_id": {
+      "type": "string",
+      "description": "Identificador único del dominio (ej. ingenieria_civil_hidraulica, tesis_doctoral_quasi2d, desarrollo_software)"
+    },
+    "nombre": {
+      "type": "string",
+      "description": "Nombre legible del dominio técnico o profesional"
+    },
+    "archivo_canonico_datos": {
+      "type": "string",
+      "description": "Patrón o nombre del archivo estructurado fuente de verdad (ej. DATOS_TECNICOS.json)"
+    },
+    "motores_calculo": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Herramientas de cálculo deterministas, librerías o servidores MCP asociados"
+    },
+    "criterios_normativos_o_estandares": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Leyes, resoluciones técnicas o estándares metodológicos de contraste"
+    },
+    "generador_entregables": {
+      "type": "string",
+      "description": "Script o plantilla encargada de compilar la vista final (Markdown, LaTeX, DOCX)"
+    }
+  }
+}
