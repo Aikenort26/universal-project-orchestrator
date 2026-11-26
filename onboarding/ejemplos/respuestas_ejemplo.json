@@ -1,0 +1,18 @@
+{
+  "idioma": "es-MX",
+  "dominio": "ingeniería ambiental y consultoría",
+  "entregables": ["informes", "hojas_calculo", "presentaciones"],
+  "formalidad": "tecnica",
+  "signos_prohibidos": ["raya larga en prosa", "emojis"],
+  "formato_numeros": "coma_miles",
+  "formato_fecha": "iso",
+  "ubicacion_trabajo": "nube_sincronizada",
+  "raiz_trabajo": "~/Proyectos",
+  "convencion_nombres": "prefijo_numerico",
+  "plan": "medio",
+  "herramientas_externas": ["modelo_local"],
+  "delegacion_automatica": "solo_lectura",
+  "puertas_humanas": ["plan", "entrega", "borrado"],
+  "acciones_externas": "siempre_preguntar",
+  "alias": "Ana"
+}

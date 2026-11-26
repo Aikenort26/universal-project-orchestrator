@@ -1,0 +1,45 @@
+{
+  "dominio_id": "investigacion",
+  "nombre": "Investigación académica y publicaciones",
+  "disparadores": [
+    "artículo",
+    "paper",
+    "tesis",
+    "revisión de literatura",
+    "capítulo",
+    "revista"
+  ],
+  "skills": [
+    "academic-paper",
+    "deep-research",
+    "citation-management",
+    "scientific-visualization"
+  ],
+  "agentes_rol": [
+    "investigador-profesor",
+    "auditor-experto"
+  ],
+  "agente_ejecutor_preferido": "claude-hija",
+  "archivo_canonico_datos": "datos de modelación y catálogo de autores y afiliaciones del usuario",
+  "motores_calculo": [
+    "MATLAB (MCP matlab)",
+    "Python",
+    "R con ggplot2",
+    "LaTeX"
+  ],
+  "normas": [
+    "catálogo de autores y afiliaciones del usuario",
+    "reglas de redacción de ~/.claude/upo/REGLAS_PERSONALES.md"
+  ],
+  "entregables": [
+    "manuscrito LaTeX",
+    "figuras",
+    "respuesta a revisores"
+  ],
+  "puertas_dominio": [
+    "autores y afiliaciones exactamente según el catálogo del usuario",
+    "toda referencia verificada por DOI",
+    "texto sin marcas invisibles ni metadatos de IA"
+  ],
+  "notas": "Adaptador de dominio para investigación científica, manuscritos y artículos académicos. Las skills y agentes listados son opcionales: si no están instalados, la hija trabaja sin ellos."
+}

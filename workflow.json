@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "upo-workflow",
+  "version": "2.2.0",
+  "description": "Ciclo de trabajo multiagente con puertas verificables (regla S10)",
+  "reglas": "references/reglas-s.md",
+  "perfil": "~/.claude/upo/REGLAS_PERSONALES.md",
+  "sesiones": "~/.claude/upo/sesiones/",
+  "dueno_unico": "Regla S8: cada archivo tiene un único dueño declarado en el brief",
+  "fases": [
+    {
+      "orden": 0,
+      "id": "arranque",
+      "nombre": "Arranque",
+      "rol": "conductor",
+      "agentes_permitidos": [
+        "claude"
+      ],
+      "nivel_modelo": "el de la sesión",
+      "herramientas": [
+        "~/.claude/upo/sesiones/INDICE.md",
+        "HANDOFF.md del proyecto",
+        "Grep o Glob puntual"
+      ],
+      "puerta": "Estado previo leído, alcance en una frase y dominio elegido",
+      "al_fallar": "PREGUNTAR_AL_USUARIO",
+      "referencia": "references/ciclo-y-puertas.md",
+      "cadena_s11": "principal: paso cero y umbral; hija: 01_HANDSHAKE.md aprobado por la principal"
+    },
+    {
+      "orden": 1,
+      "id": "planificar",
+      "nombre": "Planificar",
+      "rol": "conductor",
+      "agentes_permitidos": [
+        "claude"
+      ],
+      "nivel_modelo": "alto (modelo principal del perfil, esfuerzo alto)",
+      "herramientas": [
+        "superpowers:writing-plans",
+        "plantillas/PLANTILLA_BRIEF.md"
+      ],
+      "puerta": "Plan presentado al usuario con fases, dueño único por archivo y criterio de hecho verificable; preguntas respondidas",
+      "al_fallar": "REPLANIFICAR",
+      "referencia": "references/ciclo-y-puertas.md",
+      "cadena_s11": "principal reparte por especialidad; hija: 02_SCAVENGE.md y 03_MAPPING.md"
+    },
+    {
+      "orden": 2,
+      "id": "ejecutar",
+      "nombre": "Ejecutar",
+      "rol": "ejecutor",
+      "agentes_permitidos": [
+        "claude-hija",
+        "obrero-claude",
+        "obrero-agy-lectura",
+        "agy",
+        "opencode",
+        "codex",
+        "modelo-local"
+      ],
+      "requiere_orden_usuario": [
+        "agy",
+        "opencode",
+        "codex",
+        "modelo-local"
+      ],
+      "nivel_modelo": "según S3: hijas con el modelo de hija del perfil y esfuerzo medio; obreros con el modelo de ejecución del perfil",
+      "nota_subagente": "Los subagentes son obreros de una hija (S11); la principal no los lanza",
+      "herramientas": [
+        "references/contrato-delegacion.md",
+        "plantillas/PLANTILLA_BRIEF_OBRERO.md",
+        "start_session (hija fresh)",
+        "Agent (obrero dentro de la hija)",
+        "mcp__agy-bridge__delegate (solo por orden del usuario)"
+      ],
+      "puerta": "Cada entregable cumple su hecho_cuando y el reporte llega en formato del contrato",
+      "al_fallar": "INFORMAR_Y_REASIGNAR",
+      "referencia": "references/ciclo-y-puertas.md",
+      "cadena_s11": "hija con obreros: 04_EJECUCION.md"
+    },
+    {
+      "orden": 3,
+      "id": "auditar",
+      "nombre": "Auditar",
+      "rol": "auditor",
+      "agentes_permitidos": [
+        "claude",
+        "agente-auditor"
+      ],
+      "requiere_orden_usuario": [
+        "mcp__agy-bridge__adversarial_review"
+      ],
+      "nivel_modelo": "el mismo de planificar",
+      "herramientas": [
+        "respaldo _respaldo_<agente>_<fecha>",
+        "diff",
+        "muestreo de cálculos",
+        "mcp__agy-bridge__adversarial_review"
+      ],
+      "puerta": "Veredicto escrito Aprobada, Con corrección o No aprobada; auditor distinto del ejecutor",
+      "al_fallar": "DEVOLVER_AL_EJECUTOR",
+      "referencia": "references/ciclo-y-puertas.md",
+      "cadena_s11": "hija califica cada obrero (Aprobada, Con corrección, No aprobada; 2 reintentos); principal revisa el Resultado"
+    },
+    {
+      "orden": 4,
+      "id": "cerrar",
+      "nombre": "Cerrar",
+      "rol": "conductor",
+      "ejecuta": "la hija de la última fase cuando el cierre edita más de 2 archivos (regla S1)",
+      "agentes_permitidos": [
+        "claude"
+      ],
+      "nivel_modelo": "el de la sesión",
+      "herramientas": [
+        "~/.claude/upo/REGLAS_PERSONALES.md (redacción y entregables)",
+        "python scripts/resultado_purgado.py <estado.md>",
+        "~/.claude/upo/sesiones/INDICE.md",
+        "HANDOFF.md"
+      ],
+      "puerta": "Reglas de redacción del perfil cumplidas, Resultado validado y tablero al día",
+      "al_fallar": "CORREGIR_ANTES_DE_CERRAR",
+      "referencia": "references/ciclo-y-puertas.md",
+      "cadena_s11": "hija valida ## Resultado con resultado_purgado.py y reporta al id del padre; principal actualiza INDICE.md"
+    }
+  ],
+  "cadena_s11": {
+    "regla": "S11 de references/reglas-s.md",
+    "skill": "universal-project-orchestrator SKILL.md secciones 1 y 2",
+    "nota": "La principal no lanza subagentes ni obreros para el trabajo; los obreros (lectura masiva y ejecución) viven dentro de cada hija"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UPO v2: adaptador de dominio",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dominio_id",
+    "nombre",
+    "disparadores",
+    "skills",
+    "agentes_rol",
+    "agente_ejecutor_preferido",
+    "archivo_canonico_datos",
+    "motores_calculo",
+    "normas",
+    "entregables",
+    "puertas_dominio"
+  ],
+  "properties": {
+    "dominio_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Identificador único del dominio (letras minúsculas, números y guiones)"
+    },
+    "nombre": {
+      "type": "string",
+      "description": "Nombre legible del dominio técnico o profesional"
+    },
+    "disparadores": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Palabras que activan el dominio"
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Skills que se cargan bajo demanda"
+    },
+    "agentes_rol": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Agentes de ~/.claude/agents (ej. ingeniero-analista)"
+    },
+    "agente_ejecutor_preferido": {
+      "type": "string",
+      "enum": [
+        "claude-hija",
+        "subagente",
+        "agy",
+        "opencode-deepseek",
+        "codex",
+        "ollama"
+      ],
+      "description": "Agente ejecutor preferido para el dominio"
+    },
+    "archivo_canonico_datos": {
+      "type": "string",
+      "description": "Ruta o patrón del archivo canónico fuente de verdad de datos"
+    },
+    "motores_calculo": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Herramientas de cálculo deterministas, librerías o servidores MCP asociados"
+    },
+    "normas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Leyes, resoluciones técnicas o estándares aplicables"
+    },
+    "entregables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Lista de entregables generados por el dominio"
+    },
+    "puertas_dominio": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Comprobaciones propias del dominio"
+    },
+    "notas": {
+      "type": "string",
+      "description": "Notas o consideraciones adicionales opcionales"
+    }
+  }
+}
